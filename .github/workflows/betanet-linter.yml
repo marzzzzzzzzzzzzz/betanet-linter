@@ -1,0 +1,48 @@
+name: Betanet Spec‑Compliance Linter
+
+# This workflow runs the Betanet spec‑compliance linter against a candidate
+# binary.  It can be triggered manually via the GitHub web UI and accepts
+# an input parameter specifying the path to the binary to check.  When the
+# linter completes, the report is uploaded as an artifact.  You can
+# customise the trigger section (e.g. to run on push or pull requests) to
+# integrate the linter into your CI pipeline.
+
+on:
+  # Allow manual execution from the Actions tab with a configurable binary path.
+  workflow_dispatch:
+    inputs:
+      binary-path:
+        description: 'Relative path to the binary to lint'
+        required: true
+        default: 'test-betanet.py'
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Betanet linter
+        run: |
+          # Install the package in editable mode so the CLI is available
+          pip install .
+
+      - name: Run Betanet linter
+        run: |
+          # Execute the linter against the specified binary and generate a JSON report
+          betanet-linter --binary "${{ github.workspace }}/${{ inputs.binary-path }}" \
+            --format json --output betanet-report.json --sbom --sbom-output betanet-sbom.json
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: betanet-linter-report
+          path: |
+            betanet-report.json
+            betanet-sbom.json

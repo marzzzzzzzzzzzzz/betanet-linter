@@ -1,0 +1,59 @@
+Metadata-Version: 2.4
+Name: betanet-linter
+Version: 1.0.0
+Summary: A spec-compliance linter for Betanet programs
+Home-page: https://github.com/your-username/betanet-linter
+Author: Betanet Compliance Team
+Author-email: compliance@betanet.example
+Classifier: Development Status :: 4 - Beta
+Classifier: Intended Audience :: Developers
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Classifier: Programming Language :: Python :: 3
+Classifier: Programming Language :: Python :: 3.7
+Classifier: Programming Language :: Python :: 3.8
+Classifier: Programming Language :: Python :: 3.9
+Classifier: Programming Language :: Python :: 3.10
+Requires-Python: >=3.7
+Description-Content-Type: text/markdown
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: description-content-type
+Dynamic: home-page
+Dynamic: requires-python
+Dynamic: summary
+
+# Betanet Spec-Compliance Linter
+
+A command-line tool that automatically checks Betanet program binaries against all 11 required specification features and generates a Software Bill of Materials (SBOM).
+
+## Features
+
+- ✅ Checks all 11 required Betanet specification features
+- 📦 Generates CycloneDX-compatible SBOM
+- ⚙️ Ready-to-use GitHub Action template
+- 📝 Detailed pass/fail reporting
+ - 🔄 JSON and text output formats
+
+## GitHub Actions
+
+This repository includes a ready‑made GitHub Actions workflow at
+`.github/workflows/betanet-linter.yml`.  The workflow can be triggered manually
+from your repository’s **Actions** tab or incorporated into your continuous
+integration pipeline.  It installs the linter, runs all 11 checks against the
+binary you specify and uploads both the compliance report and SBOM as workflow
+artifacts.  When invoking the workflow manually, provide the relative path to
+your candidate binary via the `binary-path` input.
+
+## Installation
+
+### From Source
+
+```bash
+# On Windows:
+cd D:\Programming\betanet LINTER
+python -m venv venv
+venv\Scripts\activate
+pip install -e .

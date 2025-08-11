@@ -1,0 +1,2 @@
+[console_scripts]
+betanet-linter = betanet_linter.cli:main

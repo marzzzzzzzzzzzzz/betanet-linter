@@ -1,0 +1,57 @@
+{
+  "bomFormat": "CycloneDX",
+  "specVersion": "1.4",
+  "version": 1,
+  "metadata": {
+    "timestamp": "2025-08-11T22:04:40.271622Z",
+    "tools": [
+      {
+        "vendor": "Betanet",
+        "name": "Spec-Compliance Linter",
+        "version": "1.0.0"
+      }
+    ],
+    "component": {
+      "type": "application",
+      "name": "test-betanet.py",
+      "version": "Unknown",
+      "hashes": [
+        {
+          "alg": "MD5",
+          "content": "49b940b726c5ea99cd96886712b83d32"
+        },
+        {
+          "alg": "SHA-1",
+          "content": "8312c486368a69e85561d63edf260139e2eeb8cf"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "310f2336bd519b60fef02d0f76eaca12324787e9b77498f74d1849c10059573c"
+        }
+      ]
+    }
+  },
+  "components": [
+    {
+      "type": "file",
+      "name": "test-betanet.py",
+      "version": "Unknown",
+      "hashes": [
+        {
+          "alg": "MD5",
+          "content": "49b940b726c5ea99cd96886712b83d32"
+        },
+        {
+          "alg": "SHA-1",
+          "content": "8312c486368a69e85561d63edf260139e2eeb8cf"
+        },
+        {
+          "alg": "SHA-256",
+          "content": "310f2336bd519b60fef02d0f76eaca12324787e9b77498f74d1849c10059573c"
+        }
+      ],
+      "size": 3886,
+      "modified": "2025-08-11T13:09:44"
+    }
+  ]
+}
