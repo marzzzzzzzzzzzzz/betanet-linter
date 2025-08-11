@@ -1,48 +1,35 @@
-name: Betanet Spec‑Compliance Linter
-
-# This workflow runs the Betanet spec‑compliance linter against a candidate
-# binary.  It can be triggered manually via the GitHub web UI and accepts
-# an input parameter specifying the path to the binary to check.  When the
-# linter completes, the report is uploaded as an artifact.  You can
-# customise the trigger section (e.g. to run on push or pull requests) to
-# integrate the linter into your CI pipeline.
-
+name: Betanet Spec-Compliance Linter
 on:
-  # Allow manual execution from the Actions tab with a configurable binary path.
   workflow_dispatch:
     inputs:
       binary-path:
-        description: 'Relative path to the binary to lint'
+        description: Path to the candidate binary
         required: true
-        default: 'test-betanet.py'
+        default: test-betanet.py
 
 jobs:
   lint:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Python
-        uses: actions/setup-python@v4
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.x'
+          python-version: '3.11'
 
-      - name: Install Betanet linter
+      - name: Install linter
         run: |
-          # Install the package in editable mode so the CLI is available
-          pip install .
+          python -m pip install --upgrade pip
+          pip install -e .
 
-      - name: Run Betanet linter
+      - name: Run linter
         run: |
-          # Execute the linter against the specified binary and generate a JSON report
-          betanet-linter --binary "${{ github.workspace }}/${{ inputs.binary-path }}" \
-            --format json --output betanet-report.json --sbom --sbom-output betanet-sbom.json
+          python .\betanet-linter.py --binary "${{ github.event.inputs.binary-path }}" --format json --sbom
 
-      - name: Upload report artifact
-        uses: actions/upload-artifact@v3
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
         with:
-          name: betanet-linter-report
+          name: betanet-linter-artifacts
+          if-no-files-found: error
           path: |
-            betanet-report.json
-            betanet-sbom.json
+            report.json
+            sbom.json
